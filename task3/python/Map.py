@@ -47,17 +47,13 @@ class Map:
         self.lands = [[Land() for x in range(self.D)] for y in range(self.D)]
         for i in range(self.totalNum):
             pos = self.getUnOccupiedPosition()
-            print(str(pos.getX()) + '   ' + str(pos.getY()))
             if i < self.m :
                 self.lands[pos.getX()][pos.getY()].setOccupied_obj(Monster(pos.getX(), pos.getY(), i, self))
-                print(self.lands[pos.getX()][pos.getY()].getOccupantName())
             elif i < (self.m+self.e) :
                 self.lands[pos.getX()][pos.getY()].setOccupied_obj(Elf(pos.getX(), pos.getY(), i-self.m, self))
-                print(self.lands[pos.getX()][pos.getY()].getOccupantName())
             else:
                 self.lands[pos.getX()][pos.getY()].setOccupied_obj(Warrior(pos.getX(), pos.getY(), i-self.m-self.e, self))
                 self.teleportable_obj.append(self.lands[pos.getX()][pos.getY()].getOccupied_obj())
-                print(self.lands[pos.getX()][pos.getY()].getOccupantName())
             pass
         pass
 
@@ -77,8 +73,8 @@ class Map:
         pass
 
     def deleteTeleportableObj(self, obj):
-        index = self.teleportable_obj.indexOf(obj)
-        self.teleportable_obj.set(index, None)
+        index = self.teleportable_obj.index(obj)
+        self.teleportable_obj[index] =  None
         pass
 
     def getUnOccupiedPosition(self):
@@ -92,7 +88,7 @@ class Map:
         pass
 
     def printBoard(self):
-        printObject = [[' ']*self.D]*self.D
+        printObject = [[' ' for x in range(self.D)] for y in range(self.D)]
         for i in range(self.D):
             for j in range(self.D):
                 occupantName = self.lands[i][j].getOccupantName();

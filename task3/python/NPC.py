@@ -30,7 +30,7 @@ class NPC:
         self.index = index
 
     def talk(self, content):
-        print(content)
+        print(self.name + ": " + content)
         pass
 
     def actionOnWarrior(self, warrior):

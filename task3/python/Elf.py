@@ -27,7 +27,7 @@ class Elf(NPC):
 
     def actionOnWarrior(self,warrior):
         self.talk('My name is '+ self.getName() + '.  Welcome to my home.  ' + 'My magic power is %d.' % self.getPower())
-        self.talk('Your magic crystal is ' + warrior.getMagic_crystal()+'.')
+        self.talk('Your magic crystal is ' + str(warrior.getMagic_crystal())+'.')
         self.talk('Do you need my help?')
         self.talk('You now have following options: ')
         print('1. Yes');
@@ -36,11 +36,11 @@ class Elf(NPC):
         a = int(a)
 
         if a == 1 :
-            value = TheJourney.rand.nextInt(self.getPower()-2)+2
+            value = random.randint(0, self.getPower()-2)+2
             if warrior.getMagic_crystal() > value :
                 warrior.decreaseCrystal(value)
                 warrior.increaseHealth(value)
-                warrior.talk('Thanks for your help!' + self.getName + '.')
+                warrior.talk('Thanks for your help!' + self.getName() + '.')
             else :
                 warrior.talk('Very embarrassing, I don\'t have enough crystals.')
         return False

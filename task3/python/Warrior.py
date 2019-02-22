@@ -39,10 +39,14 @@ class Warrior:
         print('Specify your target position (Input \'x y\').')
         userinput = input()
         posx, posy = userinput.split()
+        posy = int(posy)
+        posx = int(posx)
         while (posx == self.pos.getX()) and (posy == self.pos.getY()):
             print('Specify your target position (Input \'x y\'). It should not be the same as the original one.')
             userinput = input()
             posx, posy = userinput.split()
+            posx = int(posx)
+            posy = int(posy)
             pass
         result = self.map.coming(posx, posy, self)
         if result :
@@ -70,8 +74,8 @@ class Warrior:
 
     def increaseHealth(self, value):
         self.health += value;
-        if self.health > HEALTH_CAP:
-            self.health = HEALTH_CAP
+        if self.health > self.HEALTH_CAP:
+            self.health = self.HEALTH_CAP
         pass
 
     def decreaseHealth(self, value):

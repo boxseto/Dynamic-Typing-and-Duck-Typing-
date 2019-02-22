@@ -25,8 +25,8 @@ class Land:
     def __init__(self):
         self.occupied_obj = None
 
-    def coming(warrior):
-        if type(self.occupied_obj) is NPC:
+    def coming(self, warrior):
+        if isinstance(self.occupied_obj, NPC):
             return self.occupied_obj.actionOnWarrior(warrior)
         return True
         pass
@@ -37,7 +37,6 @@ class Land:
 
     def setOccupied_obj(self, occupied_obj):
         self.occupied_obj = occupied_obj
-        print('receieved object' + str(type(occupied_obj)))
         pass
 
     def getOccupantName(self):

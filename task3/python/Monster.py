@@ -24,18 +24,19 @@ class Monster(NPC):
         self.setName('M' + str(index))
         self.setPower(random.randint(0, self.DAMAGE_CAP - 5) + 5)
 
-    def actionOnWarrior(warrior):
+    def actionOnWarrior(self, warrior):
         self.talk('I am the monster ' + self.getName() + '.  Here is my territory.  ' + 'My damage power is %d.' % self.getPower())
-        self.talk('Your health is ' + warrior.getHealth() + '.')
+        self.talk('Your health is ' + str(warrior.getHealth()) + '.')
         self.talk('Do you really want to challenge me?')
         self.talk('You now have following options: ')
         print('1. Yes')
         print('2. No')
         a = input()
+        a = int(a)
         if a == 1 :
             if warrior.getHealth() > self.getPower() :
-                warrior.decreaseHealth(self.getPower)
-                warrior.increaseCrystal(TheJourney.rand.nextInt(5) + 5)
+                warrior.decreaseHealth(self.getPower())
+                warrior.increaseCrystal(random.randint(0, 5) + 5)
                 warrior.talk('Nice, I have killed the monster ' + self.getName() + '.')
                 self.map.decreaseNumOfAliveMonsters()
                 return True
