@@ -18,45 +18,51 @@
 from Pos import Pos
 
 class NPC:
-    pos = None
-    index = None
-    name = None
-    power = None
-    map = None
+    _pos = None
+    _index = None
+    _name = None
+    _power = None
+    _map = None
 
     def __init__(self, posx, posy, index, map):
-        self.map = map
-        self.pos = Pos(posx, posy)
-        self.index = index
+        self._map = map
+        self._pos = Pos(posx, posy)
+        self._index = index
 
     def talk(self, content):
-        print(self.name + ": " + content)
+        print(self._name + ": " + content)
         pass
 
     def actionOnWarrior(self, warrior):
         return False
         pass
 
-    def setPos(self, pos):
-        self.pos = pos
+    @property
+    def pos(self):
+        return self._pos
         pass
 
-    def getPos(self):
-        return self.pos
+    @pos.setter
+    def pos(self, _pos):
+        self._pos = _pos
         pass
 
-    def setName(self, name):
-        self.name = name
+    @property
+    def name(self):
+        return self._name
         pass
 
-    def getName(self):
-        return self.name
+    @name.setter
+    def name(self, _name):
+        self._name = _name
         pass
 
-    def getPower(self):
-        return self.power
+    @property
+    def power(self):
+        return self._power
         pass
 
-    def setPower(self, power):
-        self.power = power
+    @power.setter
+    def power(self, _power):
+        self._power = _power
         pass

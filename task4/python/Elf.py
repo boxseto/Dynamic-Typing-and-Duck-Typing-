@@ -22,12 +22,12 @@ class Elf(NPC):
     MAGIC_CAP = 20;
     def __init__(self, posx, posy, index, map):
         super(Elf, self).__init__(posx, posy, index, map)
-        self.setName('E' + str(index))
-        self.setPower(random.randint(0,self.MAGIC_CAP - 5) + 5)
+        self.name = 'E' + str(index)
+        self.power = random.randint(0,self.MAGIC_CAP - 5) + 5
 
     def actionOnWarrior(self,warrior):
-        self.talk('My name is '+ self.getName() + '.  Welcome to my home.  ' + 'My magic power is %d.' % self.getPower())
-        self.talk('Your magic crystal is ' + str(warrior.getMagic_crystal())+'.')
+        self.talk('My name is '+ self.name + '.  Welcome to my home.  ' + 'My magic power is %d.' % self.power)
+        self.talk('Your magic crystal is ' + str(warrior.magic_crystal)+'.')
         self.talk('Do you need my help?')
         self.talk('You now have following options: ')
         print('1. Yes');
@@ -36,11 +36,11 @@ class Elf(NPC):
         a = int(a)
 
         if a == 1 :
-            value = random.randint(0, self.getPower()-2)+2
-            if warrior.getMagic_crystal() > value :
+            value = random.randint(0, self.power-2)+2
+            if warrior.magic_crystal > value :
                 warrior.decreaseCrystal(value)
                 warrior.increaseHealth(value)
-                warrior.talk('Thanks for your help!' + self.getName() + '.')
+                warrior.talk('Thanks for your help!' + self.name + '.')
             else :
                 warrior.talk('Very embarrassing, I don\'t have enough crystals.')
         return False

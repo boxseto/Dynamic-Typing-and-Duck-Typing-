@@ -17,7 +17,7 @@
  */
 
 public class Warrior{
-	private static final int HEALTH_CAP = 10;
+	private static final int HEALTH_CAP = 40;
 	private Pos pos;
 	private int index;
 	private int health;

@@ -32,8 +32,8 @@ class Map:
     w = None
     p = None
     totalNum = 0
-    numOfAliveMonsters = None
-    numOfAliveWarriors = None
+    _numOfAliveMonsters = None
+    _numOfAliveWarriors = None
     numOfPotions = None
 
     def __init__(self):
@@ -43,8 +43,8 @@ class Map:
         self.w = random.randint(0,1) + 2
         self.p = random.randint(0,1) + 2
         self.totalNum = self.m + self.e + self.w + self.p
-        self.numOfAliveMonsters = self.m
-        self.numOfAliveWarriors = self.w
+        self._numOfAliveMonsters = self.m
+        self._numOfAliveWarriors = self.w
         self.numOfPotions = self.p
 
     def initializeAll(self):
@@ -53,15 +53,15 @@ class Map:
         for i in range(self.totalNum):
             pos = self.getUnOccupiedPosition()
             if i < self.m :
-                self.lands[pos.getX()][pos.getY()].setOccupied_obj(Monster(pos.getX(), pos.getY(), i, self))
+                self.lands[pos.x][pos.y].occupied_obj = (Monster(pos.x, pos.y, i, self))
             elif i < (self.m+self.e) :
-                self.lands[pos.getX()][pos.getY()].setOccupied_obj(Elf(pos.getX(), pos.getY(), i-self.m, self))
+                self.lands[pos.x][pos.y].occupied_obj = (Elf(pos.x, pos.y, i-self.m, self))
             elif i < (self.m+self.e+self.p) :
-                self.lands[pos.getX()][pos.getY()].setOccupied_obj(Potion(pos.getX(), pos.getY(), i-self.m-self.e, self))
-                self.teleportable_obj.append(self.lands[pos.getX()][pos.getY()].getOccupied_obj())
+                self.lands[pos.x][pos.y].occupied_obj = (Potion(pos.x, pos.y, i-self.m-self.e, self))
+                self.teleportable_obj.append(self.lands[pos.x][pos.y].occupied_obj)
             else:
-                self.lands[pos.getX()][pos.getY()].setOccupied_obj(Warrior(pos.getX(), pos.getY(), i-self.m-self.e-self.p, self))
-                self.teleportable_obj.append(self.lands[pos.getX()][pos.getY()].getOccupied_obj())
+                self.lands[pos.x][pos.y].occupied_obj = (Warrior(pos.x, pos.y, i-self.m-self.e-self.p, self))
+                self.teleportable_obj.append(self.lands[pos.x][pos.y].occupied_obj)
             pass
         pass
 
@@ -75,11 +75,11 @@ class Map:
     def teleportPotion(self):
         for obj in self.teleportable_obj:
             if type(obj) is Potion:
-                posfrom = obj.getPos()
+                posfrom = obj.pos
                 self.setLand(posfrom, None)
                 posto = self.getUnOccupiedPosition()
                 self.setLand(posto, obj)
-                obj.setPos(posto)
+                obj.pos = (posto)
             pass
         pass
 
@@ -88,7 +88,7 @@ class Map:
         pass
 
     def setLand(self, pos, occupied_obj):
-        self.lands[pos.getX()][pos.getY()].setOccupied_obj(occupied_obj)
+        self.lands[pos.x][pos.y].occupied_obj = (occupied_obj)
         pass
 
     def deleteTeleportableObj(self, obj):
@@ -99,7 +99,7 @@ class Map:
     def getUnOccupiedPosition(self):
         randx = random.randint(0,self.D-1)
         randy = random.randint(0,self.D-1)
-        while self.lands[randx][randy].getOccupied_obj() != None:
+        while self.lands[randx][randy].occupied_obj != None:
             randx = random.randint(0, self.D-1)
             randy = random.randint(0, self.D-1)
             pass
@@ -138,29 +138,33 @@ class Map:
         pass
 
     def decreaseNumOfAliveMonsters(self):
-        self.numOfAliveMonsters -= 1
+        self._numOfAliveMonsters -= 1
         pass
 
     def decreaseNumOfWarriors(self):
-        self.numOfAliveWarriors -= 1
+        self._numOfAliveWarriors -= 1
         pass
 
     def decreaseNumOfPotion(self):
         self.numOfPotions -= 1
         pass
 
-    def getNumOfAliveMonsters(self):
-        return self.numOfAliveMonsters
+    @property
+    def numOfAliveMonsters(self):
+        return self._numOfAliveMonsters
         pass
 
-    def setNumOfAliveMonsters(self, numOfAliveMonsters):
-        self.numOfAliveMonsters = numOfAliveMonsters
+    @numOfAliveMonsters.setter
+    def numOfAliveMonsters(self, _numOfAliveMonsters):
+        self._numOfAliveMonsters = _numOfAliveMonsters
         pass
 
-    def getNumOfAliveWarriors(self):
-        return self.numOfAliveWarriors
+    @property
+    def numOfAliveWarriors(self):
+        return self._numOfAliveWarriors
         pass
 
-    def setNumOfAliveWarriors(self, numOfAliveWarriors):
-        self.numOfAliveWarriors = numOfAliveWarriors
+    @numOfAliveWarriors.setter
+    def numOfAliveWarriors(self, _numOfAliveWarriors):
+        self._numOfAliveWarriors = _numOfAliveWarriors
         pass

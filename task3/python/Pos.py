@@ -17,22 +17,24 @@
 #
 
 class Pos:
-    x = None
-    y = None
+    _x = None
+    _y = None
 
     def __init__(self, x, y):
-        self.x = x
-        self.y = y
+        self._x = x
+        self._y = y
 
     def setPos(self, x, y):
-        self.x = x
-        self.y = y
+        self._x = x
+        self._y = y
         pass
 
-    def getX(self):
-        return self.x
+    @property
+    def x(self):
+        return self._x
         pass
 
-    def getY(self):
-        return self.y
+    @property
+    def y(self):
+        return self._y
         pass

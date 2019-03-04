@@ -18,90 +18,93 @@
 from Pos import Pos
 
 class Warrior:
-    HEALTH_CAP = 10
-    pos = None
-    index = None
-    health = None
-    name = None
-    map = None
-    magic_crystal = None
+    _HEALTH_CAP = 40
+    _pos = None
+    _index = None
+    _health = None
+    _name = None
+    _map = None
+    _magic_crystal = None
 
     def __init__(self, posx, posy, index, map):
-        self.pos = Pos(posx, posy)
-        self.index = index
-        self.map = map
-        self.name = 'W' + str(index)
-        self.health = self.HEALTH_CAP
-        self.magic_crystal = 10
+        self._pos = Pos(posx, posy)
+        self._index = index
+        self._map = map
+        self._name = 'W' + str(index)
+        self._health = self._HEALTH_CAP
+        self._magic_crystal = 10
 
     def teleport(self):
-        print('Hi, ' + self.name + '. ' + 'Your position is (%d,%d) and health is %d.' % (self.pos.getX(), self.pos.getY(), self.health))
+        print('Hi, ' + self._name + '. ' + 'Your position is (%d,%d) and health is %d.' % (self._pos.x, self._pos.y, self._health))
         print('Specify your target position (Input \'x y\').')
         userinput = input()
         posx, posy = userinput.split()
         posy = int(posy)
         posx = int(posx)
-        while (posx == self.pos.getX()) and (posy == self.pos.getY()):
+        while (posx == self._pos.x) and (posy == self._pos.y):
             print('Specify your target position (Input \'x y\'). It should not be the same as the original one.')
             userinput = input()
             posx, posy = userinput.split()
             posx = int(posx)
             posy = int(posy)
             pass
-        result = self.map.coming(posx, posy, self)
+        result = self._map.coming(posx, posy, self)
         if result :
-            self.map.setLand(self.pos, None)
-            self.pos.setPos(posx, posy)
-            self.map.setLand(self.pos, self)
-        if self.health <= 0:
-            print('Very sorry, '+self.name+' has been killed.')
-            self.map.setLand(self.pos, None)
-            self.map.deleteTeleportableObj(self)
-            self.map.decreaseNumOfWarriors()
+            self._map.setLand(self._pos, None)
+            self._pos.setPos(posx, posy)
+            self._map.setLand(self._pos, self)
+        if self._health <= 0:
+            print('Very sorry, '+self._name+' has been killed.')
+            self._map.setLand(self._pos, None)
+            self._map.deleteTeleportableObj(self)
+            self._map.decreaseNumOfWarriors()
         pass
 
     def talk(self, content):
-        print(self.name+': '+content)
+        print(self._name+': '+content)
         pass
 
     def increaseCrystal(self, value):
-        self.magic_crystal += value;
+        self._magic_crystal += value;
         pass
 
     def decreaseCrystal(self, value):
-        self.magic_crystal -= value;
+        self._magic_crystal -= value;
         pass
 
     def increaseHealth(self, value):
-        self.health += value;
-        if self.health > self.HEALTH_CAP:
-            self.health = self.HEALTH_CAP
+        self._health += value;
+        if self._health > self._HEALTH_CAP:
+            self._health = self._HEALTH_CAP
         pass
 
     def decreaseHealth(self, value):
-        self.health -= value;
+        self._health -= value;
         pass
 
-    def getPos(self):
-        return self.pos
+    @property
+    def pos(self):
+        return self._pos
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def health(self):
+        return self._health
+
+    @health.setter
+    def health(self, _health):
+        self._health = _health
         pass
 
-    def getName(self):
-        return self.name
+    @property
+    def magic_crystal(self):
+        return self._magic_crystal
         pass
 
-    def getHealth(self):
-        return self.health
-        pass
-
-    def setHealth(self, health):
-        self.health = health
-        pass
-
-    def getMagic_crystal(self):
-        return self.magic_crystal
-        pass
-
-    def setMagic_crystal(self, magic_crystal):
-        self.magic_crystal = magic_crystal
+    @magic_crystal.setter
+    def magic_crystal(self, _magic_crystal):
+        self._magic_crystal = _magic_crystal
         pass

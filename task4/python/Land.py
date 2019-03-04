@@ -17,32 +17,37 @@
 #
 from NPC import NPC
 from Warrior import Warrior
+from Potion import Potion
 
 class Land:
 
-    occupied_obj = None
+    _occupied_obj = None
 
     def __init__(self):
-        self.occupied_obj = None
+        self._occupied_obj = None
 
     def coming(self, warrior):
-        if self.occupied_obj != None:
-            return self.occupied_obj.actionOnWarrior(warrior)
+        if self._occupied_obj != None:
+            return self._occupied_obj.actionOnWarrior(warrior)
         return True
         pass
 
-    def getOccupied_obj(self):
-        return self.occupied_obj
+    @property
+    def occupied_obj(self):
+        return self._occupied_obj
         pass
 
-    def setOccupied_obj(self, occupied_obj):
-        self.occupied_obj = occupied_obj
+    @occupied_obj.setter
+    def occupied_obj(self, occupied_obj):
+        self._occupied_obj = occupied_obj
         pass
 
     def getOccupantName(self):
-        if isinstance(self.occupied_obj, NPC):
-            return self.occupied_obj.getName()
-        elif type(self.occupied_obj) is Warrior:
-            return self.occupied_obj.getName()
+        if isinstance(self._occupied_obj, NPC):
+            return self._occupied_obj.name
+        elif type(self._occupied_obj) is Warrior:
+            return self._occupied_obj.name
+        elif type(self._occupied_obj) is Potion:
+            return self._occupied_obj.name
         return None
         pass

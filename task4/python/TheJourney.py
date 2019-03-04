@@ -33,14 +33,14 @@ class TheJourney:
 
     def gameStart(self):
         self.map.initializeAll()
-        numOfAliveMonsters = self.map.getNumOfAliveMonsters()
-        numOfAliveWarriors = self.map.getNumOfAliveWarriors()
+        numOfAliveMonsters = self.map.numOfAliveMonsters
+        numOfAliveWarriors = self.map.numOfAliveWarriors
         while (numOfAliveMonsters > 0) and (numOfAliveWarriors > 0):
             self.map.teleportPotion()
             self.map.printBoard()
             self.map.teleportWarrior()
-            numOfAliveMonsters = self.map.getNumOfAliveMonsters()
-            numOfAliveWarriors = self.map.getNumOfAliveWarriors()
+            numOfAliveMonsters = self.map.numOfAliveMonsters
+            numOfAliveWarriors = self.map.numOfAliveWarriors
             pass
         if numOfAliveMonsters == 0:
             print('Congratulations, all the monsters have been killed.')

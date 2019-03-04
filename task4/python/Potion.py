@@ -15,20 +15,62 @@
 # Student ID : 1155092585
 # Email Addr : 1155092585@link.cuhk.edu.hk
 #
-from NPC import NPC
 import random
+from Pos import Pos
 
-class Potion(NPC):
-    AID_CAP = 10;
+class Potion:
+    _AID_CAP = 10;
+    _pos = None
+    _index = None
+    _name = None
+    _power = None
+    _map = None
+
     def __init__(self, posx, posy, index, map):
-        super(Potion, self).__init__(posx, posy, index, map)
-        self.setName('P' + str(index))
-        self.setPower(random.randint(0,self.AID_CAP - 5) + 5)
+        self._map = map
+        self._pos = Pos(posx, posy)
+        self._index = index
+        self.name = 'P' + str(index)
+        self.power = random.randint(0,self._AID_CAP - 5) + 5
 
     def actionOnWarrior(self,warrior):
-        warrior.talk('Very good, I got additional healing potion '+ self.getName() +'.')
-        warrior.increaseHealth(self.getPower())
-        self.map.decreaseNumOfPotion()
-        self.map.deleteTeleportableObj(self)
+        warrior.talk('Very good, I got additional healing potion '+ self.name +'.')
+        warrior.increaseHealth(self.power)
+        self._map.decreaseNumOfPotion()
+        self._map.deleteTeleportableObj(self)
         return True
+        pass
+
+    def talk(self, content):
+        print(self._name + ": " + content)
+        pass
+
+    @property
+    def pos(self):
+        return self._pos
+        pass
+
+    @pos.setter
+    def pos(self, _pos):
+        self._pos = _pos
+        pass
+
+    @property
+    def name(self):
+        return self._name
+        pass
+
+    @name.setter
+    def name(self, _name):
+        self._name = _name
+        pass
+
+    @property
+    def power(self):
+        return self._power
+        pass
+
+    @power.setter
+    def power(self, _power):
+        self._power = _power
         pass

@@ -21,12 +21,12 @@ class Monster(NPC):
     DAMAGE_CAP = 20
     def __init__(self, posx, posy, index, map):
         super(Monster, self).__init__(posx, posy, index, map)
-        self.setName('M' + str(index))
-        self.setPower(random.randint(0, self.DAMAGE_CAP - 5) + 5)
+        self.name = ('M' + str(index))
+        self.power = (random.randint(0, self.DAMAGE_CAP - 5) + 5)
 
     def actionOnWarrior(self, warrior):
-        self.talk('I am the monster ' + self.getName() + '.  Here is my territory.  ' + 'My damage power is %d.' % self.getPower())
-        self.talk('Your health is ' + str(warrior.getHealth()) + '.')
+        self.talk('I am the monster ' + self.name + '.  Here is my territory.  ' + 'My damage power is %d.' % self.power)
+        self.talk('Your health is ' + str(warrior.health) + '.')
         self.talk('Do you really want to challenge me?')
         self.talk('You now have following options: ')
         print('1. Yes')
@@ -34,12 +34,12 @@ class Monster(NPC):
         a = input()
         a = int(a)
         if a == 1 :
-            if warrior.getHealth() > self.getPower() :
-                warrior.decreaseHealth(self.getPower())
+            if warrior.health > self.power :
+                warrior.decreaseHealth(self.power)
                 warrior.increaseCrystal(random.randint(0, 5) + 5)
-                warrior.talk('Nice, I have killed the monster ' + self.getName() + '.')
-                self.map.decreaseNumOfAliveMonsters()
+                warrior.talk('Nice, I have killed the monster ' + self.name + '.')
+                self._map.decreaseNumOfAliveMonsters()
                 return True
-            warrior.decreaseHealth(self.getPower())
+            warrior.decreaseHealth(self.power)
         return False
         pass
